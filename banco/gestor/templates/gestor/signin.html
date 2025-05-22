@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear una nueva cuenta</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css_/style.css' %}">
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Crear una nueva cuenta</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            
+
+            <label for="id_username">Usuario:</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+
+            <label for="id_email">Correo Electrónico:</label>
+            {{ form.email }}
+            {{ form.email.errors }}
+
+            <label for="id_password1">Contraseña:</label>
+            <input
+              type="password"
+              name="password1"
+              id="id_password1"
+              placeholder="Ingrese su contraseña"
+              required
+              value="{{ request.POST.password1 }}"
+            >
+            {{ form.password1.errors }}
+
+            <label for="id_password2">Confirmar Contraseña:</label>
+            <input
+              type="password"
+              name="password2"
+              id="id_password2"
+              placeholder="Confirme su contraseña"
+              required
+              value="{{ request.POST.password2 }}"
+            >
+            {{ form.password2.errors }}
+
+            <button type="submit">Registrarse</button>
+        </form>
+    </div>
+
+</body>
+</html>
+

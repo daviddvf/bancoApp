@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de la Cuenta</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css_/style.css' %}">
+</head>
+<body>
+    <div class="details-container">
+        <!-- Encabezado -->
+        <div class="encabezado-detalle">
+            <h2>Detalle de la Cuenta</h2>
+            <p><strong>Número de Cuenta:</strong> {{ cuenta.numero_cuenta }}</p>
+            <p><strong>Balance:</strong> ${{ cuenta.balance }}</p>
+            <h3>Transacciones:</h3>
+        </div>
+
+        <!-- Contenido principal (transacciones + acciones) -->
+        <div class="contenido-principal">
+            <!-- Transacciones -->
+            <div class="transacciones">
+                {% for transaccion in transacciones %}
+                <div class="transaccion-card">
+                    <p><strong>{{ transaccion.tipo }}:</strong> ${{ transaccion.monto }}</p>
+                    <p><strong>Fecha:</strong> {{ transaccion.fecha }}</p>
+                    <p><strong>Referencia:</strong> {{ transaccion.referencia }}</p>
+                </div>
+                {% empty %}
+                <p>No hay transacciones registradas.</p>
+                {% endfor %}
+            </div>
+
+            <!-- Acciones -->
+            <div class="acciones-container">
+                <a href="{% url 'transferir_dinero' cuenta.id %}" class="btn-secondary">Transferir Dinero</a>
+                <h3>Depositar Dinero:</h3>
+                <form method="post" action="{% url 'depositar_dinero' cuenta.id %}">
+                    {% csrf_token %}
+                    <input type="number" step="0.01" name="monto" placeholder="Monto a depositar" required>
+                    <button type="submit" class="btn-secondary">Depositar</button>
+                </form>
+                <a href="{% url 'pagina_principal' %}" class="btn-link">Regresar a Home</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

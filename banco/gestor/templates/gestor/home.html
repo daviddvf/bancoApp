@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Cuentas Bancarias</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css_/style.css' %}">
+</head>
+<body>
+
+    <div class="home-container">
+        <div class="links-container">
+            <a href="{% url 'cerrar_sesion' %}">Cerrar sesión</a>
+            <a href="{% url 'detalles_usuario' %}">Detalles del Usuario</a>
+        </div>
+
+        <h2>Mis Cuentas Bancarias</h2>
+
+        {% for cuenta in cuentas %}
+            <div class="cuenta-card">
+                <p><strong>Número de cuenta:</strong> {{ cuenta.numero_cuenta }}</p>
+                <p><strong>Balance:</strong> ${{ cuenta.balance }}</p>
+                <a href="{% url 'detalle_cuenta' cuenta.id %}">Ver detalles</a>
+            </div>
+        {% endfor %}
+        
+        {% if cuentas|length >= 2 %}
+            <p>Máximo de 2 cuentas alcanzado</p>
+        {% else %}
+            <a class="btn-primary" href="{% url 'crear_cuenta_bancaria' %}">Crear nueva cuenta bancaria</a>
+        {% endif %}
+    </div>
+
+</body>
+</html>

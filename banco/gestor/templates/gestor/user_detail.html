@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles del Usuario</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css_/style.css' %}">
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Detalles del Usuario</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="username">Usuario:</label>
+            <input type="text" name="username" value="{{ user.username }}" required>
+
+            <label for="email">Correo:</label>
+            <input type="email" name="email" value="{{ user.email }}" required>
+
+            <label for="password">Nueva Contraseña (opcional):</label>
+            <input type="password" name="password">
+
+            <button type="submit" name="update">Actualizar Datos</button>
+        </form>
+
+        <hr>
+
+        <h3>Eliminar Usuario y Cuentas</h3>
+        <form method="post">
+            {% csrf_token %}
+            <label for="confirm">Para eliminar el usuario escribe: Eliminar</label>
+            <input type="text" name="confirm" placeholder="Escribe Eliminar para confirmar">
+            <button type="submit" name="delete" style="background-color: red;">Eliminar Usuario y Cuentas</button>
+        </form>
+
+        <a href="{% url 'pagina_principal' %}">Regresar al Home</a>
+    </div>
+
+</body>
+</html>
