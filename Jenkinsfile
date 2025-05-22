@@ -56,7 +56,7 @@ pipeline {
   }
 
   post {
-    success { echo "✅ Build, push y deploy completados con éxito :) " }
+    success { echo "✅ Build, push y deploy completados con éxito :p " }
     failure { echo "❌ Hubo un fallo en el pipeline" }
     always  { sh 'docker logout || true' }
   }
